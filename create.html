@@ -299,147 +299,151 @@
     </main>
     <div id="notice" class="notice" role="status"></div>
     <script>
-        (() => {
-            const file = document.getElementById('file');
-            const img = document.getElementById('preview');
-            const wrap = document.getElementById('previewWrap');
-            const prompt = document.getElementById('prompt');
-            const notice = document.getElementById('notice');
-            const form = document.getElementById('form');
-            const submit = document.getElementById('submit');
-            const uploadZone = document.getElementById('uploadZone');
-            const referenceInput = document.getElementById('reference');
-            let photoData = '';
-            let pkg = 'basic';
-            let styleId = 'classic';
-            let styleName = 'Classic Christmas';
-            const params = new URLSearchParams(window.location.search);
-            const isTestPage = params.get('test') === '1';
-            const urlPkg = params.get('pkg');
-            if (isTestPage) document.getElementById('testBanner').classList.add('show');
-            if (urlPkg === 'premium') {
-                pkg = 'premium';
-                document.querySelectorAll('.pkg').forEach(c => c.classList.toggle('selected', c.dataset.pkg === 'premium'));
-                document.getElementById('sumPkg').textContent = 'Premium · 5+ photos + video';
-                document.getElementById('sumPrice').textContent = '₱149.00';
-            }
-            if (referenceInput) {
-                referenceInput.addEventListener('input', () => {
-                    document.getElementById('sumRef').textContent = referenceInput.value.trim() || '—';
-                });
-            }
-            function say(msg) {
-                notice.textContent = msg;
-                notice.classList.add('show');
-                clearTimeout(say.t);
-                say.t = setTimeout(() => notice.classList.remove('show'), 4000);
-            }
-            ['dragenter', 'dragover'].forEach(eventName => {
-                uploadZone.addEventListener(eventName, (e) => { e.preventDefault(); uploadZone.classList.add('is-dragging'); });
-            });
-            ['dragleave', 'drop'].forEach(eventName => {
-                uploadZone.addEventListener(eventName, (e) => { e.preventDefault(); uploadZone.classList.remove('is-dragging'); });
-            });
-            uploadZone.addEventListener('drop', (e) => {
-                const dt = e.dataTransfer;
-                if (dt.files.length) { file.files = dt.files; file.dispatchEvent(new Event('change')); }
-            });
-            file.addEventListener('change', () => {
-                let f = file.files[0];
-                if (!f) return;
-                if (!f.type.startsWith('image/')) { say('Please choose an image file.'); file.value = ''; return; }
-                if (f.size > 10 * 1024 * 1024) { say('Photo must be 10 MB or less.'); file.value = ''; return; }
-                let r = new FileReader();
-                r.onload = () => { photoData = r.result; img.src = photoData; wrap.classList.remove('hide'); prompt.classList.add('hide'); };
-                r.readAsDataURL(f);
-            });
-            document.getElementById('remove').addEventListener('click', e => {
-                e.preventDefault(); e.stopPropagation();
-                file.value = ''; photoData = ''; wrap.classList.add('hide'); prompt.classList.remove('hide');
-            });
-            document.querySelectorAll('.pkg').forEach(card => {
-                card.addEventListener('click', () => {
-                    pkg = card.dataset.pkg;
-                    document.querySelectorAll('.pkg').forEach(c => c.classList.toggle('selected', c === card));
-                    let premium = pkg === 'premium';
-                    document.getElementById('sumPkg').textContent = premium ? 'Premium · 5+ photos + video' : 'Basic · 5 photos';
-                    document.getElementById('sumPrice').textContent = premium ? '₱149.00' : '₱99.00';
-                });
-            });
-            function addCheckBadge(element) {
-                document.querySelectorAll('.check-badge').forEach(b => b.remove());
-                const badge = document.createElement('div');
-                badge.className = 'check-badge';
-                badge.innerHTML = [STRIPPED 216 bytes];
-                badge.style.cssText = 'position:absolute;top:8px;right:8px;background:var(--holly);color:white;border-radius:50%;width:24px;height:24px;display:grid;place-items:center;box-shadow:0 2px 4px rgba(0,0,0,0.1);z-index:2;';
-                element.querySelector('.art').appendChild(badge);
-            }
-            addCheckBadge(document.querySelector('.style.selected'));
-            document.querySelectorAll('.style').forEach(card => {
-                card.addEventListener('click', () => {
-                    document.querySelectorAll('.style').forEach(c => c.classList.remove('selected'));
-                    card.classList.add('selected');
-                    addCheckBadge(card);
-                    styleId = card.dataset.style;
-                    styleName = card.querySelector('strong').textContent;
-                    document.getElementById('sumStyle').textContent = styleName;
-                });
-            });
-            document.getElementById('testBtn').addEventListener('click', () => {
-                if (!photoData) { say('Please upload your portrait first to test.'); return; }
-                const testDraft = {
-                    packageId: pkg,
-                    amountCentavos: 0,
-                    styleId, styleName,
-                    customer: {
-                        name: document.getElementById('name').value.trim() || 'Test User',
-                        email: document.getElementById('email').value.trim() || 'test@test.com',
-                        phone: document.getElementById('phone').value.trim(),
-                        reference: referenceInput?.value.trim() || 'TEST-REF'
-                    },
-                    photoPreview: photoData,
-                    createdAt: new Date().toISOString(),
-                    status: 'test', isTest: true
-                };
-                try {
-                    localStorage.setItem('christmasPhotoMagicOrderDraft', JSON.stringify(testDraft));
-                    say('TEST mode: Test order saved! No payment charged.');
-                    const btn = document.getElementById('testBtn');
-                    btn.textContent = 'TEST SAVED ✓';
-                    setTimeout(() => { btn.textContent = 'TEST'; }, 2500);
-                } catch (err) { say('Could not save test draft. Try a smaller image.'); }
-            });
-            form.addEventListener('submit', e => {
-                e.preventDefault();
-                if (!photoData) { say('Please upload your portrait first.'); return; }
-                if (!form.reportValidity()) return;
-                let draft = {
-                    packageId: pkg,
-                    amountCentavos: pkg === 'premium' ? 14900 : 9900,
-                    styleId, styleName,
-                    customer: {
-                        name: document.getElementById('name').value.trim(),
-                        email: document.getElementById('email').value.trim(),
-                        phone: document.getElementById('phone').value.trim(),
-                        reference: referenceInput?.value.trim() || ''
-                    },
-                    photoPreview: photoData,
-                    createdAt: new Date().toISOString(),
-                    status: 'draft'
-                };
-                try {
-                    localStorage.setItem('christmasPhotoMagicOrderDraft', JSON.stringify(draft));
-                    say('Demo order draft saved! Backend connection is not yet active.');
-                    submit.innerHTML = 'Draft saved ✓';
-                    submit.style.background = 'var(--pine)';
-                    submit.style.color = 'white';
-                    setTimeout(() => {
-                        submit.innerHTML = [STRIPPED 252 bytes];
-                        submit.style.background = ''; submit.style.color = '';
-                    }, 2500);
-                } catch (err) { say('Could not save draft. Try a smaller image.'); }
-            });
-        })();
-    </script>
+(() => {
+    const file = document.getElementById('file');
+    const img = document.getElementById('preview');
+    const wrap = document.getElementById('previewWrap');
+    const prompt = document.getElementById('prompt');
+    const notice = document.getElementById('notice');
+    const form = document.getElementById('form');
+    const submit = document.getElementById('submit');
+    const uploadZone = document.getElementById('uploadZone');
+    const referenceInput = document.getElementById('reference');
+    const testBtn = document.getElementById('testBtn');
+
+    let photoData = '';
+    let pkg = 'basic';
+    let styleId = 'classic';
+    let styleName = 'Classic Christmas';
+
+    function getReference() {
+        if (referenceInput && referenceInput.value) return referenceInput.value.trim();
+        return '';
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const isTestPage = params.get('test') === '1';
+    const urlPkg = params.get('pkg');
+    if (isTestPage) document.getElementById('testBanner').classList.add('show');
+    if (urlPkg === 'premium') {
+        pkg = 'premium';
+        document.querySelectorAll('.pkg').forEach(function(c){
+            c.classList.toggle('selected', c.dataset.pkg === 'premium');
+        });
+        document.getElementById('sumPkg').textContent = 'Premium - 5+ photos + video';
+        document.getElementById('sumPrice').textContent = 'P149.00';
+    }
+
+    if (referenceInput) {
+        referenceInput.addEventListener('input', function(){
+            document.getElementById('sumRef').textContent = referenceInput.value.trim() || '-';
+        });
+    }
+
+    function say(msg) {
+        notice.textContent = msg;
+        notice.classList.add('show');
+        clearTimeout(say.t);
+        say.t = setTimeout(function(){ notice.classList.remove('show'); }, 4000);
+    }
+
+    file.addEventListener('change', function(){
+        let f = file.files[0];
+        if (!f) return;
+        if (!f.type.startsWith('image/')) { say('Please choose an image file.'); file.value = ''; return; }
+        if (f.size > 10 * 1024 * 1024) { say('Photo must be 10 MB or less.'); file.value = ''; return; }
+        let r = new FileReader();
+        r.onload = function(){ photoData = r.result; img.src = photoData; wrap.classList.remove('hide'); prompt.classList.add('hide'); };
+        r.readAsDataURL(f);
+    });
+
+    document.getElementById('remove').addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        file.value = ''; photoData = ''; wrap.classList.add('hide'); prompt.classList.remove('hide');
+    });
+
+    document.querySelectorAll('.pkg').forEach(function(card){
+        card.addEventListener('click', function(){
+            pkg = card.dataset.pkg;
+            document.querySelectorAll('.pkg').forEach(function(c){ c.classList.toggle('selected', c === card); });
+            let premium = pkg === 'premium';
+            document.getElementById('sumPkg').textContent = premium ? 'Premium - 5+ photos + video' : 'Basic - 5 photos';
+            document.getElementById('sumPrice').textContent = premium ? 'P149.00' : 'P99.00';
+        });
+    });
+
+    function addCheckBadge(element){
+        document.querySelectorAll('.check-badge').forEach(function(b){ b.remove(); });
+        const badge = document.createElement('div');
+        badge.className = 'check-badge';
+        badge.innerHTML = '✓';
+        badge.style.cssText = 'position:absolute;top:8px;right:8px;background:#a11d33;color:white;border-radius:50%;width:24px;height:24px;display:grid;place-items:center;z-index:2;';
+        element.querySelector('.art').appendChild(badge);
+    }
+    addCheckBadge(document.querySelector('.style.selected'));
+
+    document.querySelectorAll('.style').forEach(function(card){
+        card.addEventListener('click', function(){
+            document.querySelectorAll('.style').forEach(function(c){ c.classList.remove('selected'); });
+            card.classList.add('selected');
+            addCheckBadge(card);
+            styleId = card.dataset.style;
+            styleName = card.querySelector('strong').textContent;
+            document.getElementById('sumStyle').textContent = styleName;
+        });
+    });
+
+    testBtn.addEventListener('click', function(){
+        if (!photoData) { say('Please upload your portrait first to test.'); return; }
+        const testDraft = {
+            packageId: pkg,
+            amountCentavos: 0,
+            styleId: styleId,
+            styleName: styleName,
+            customer: {
+                name: document.getElementById('name').value.trim() || 'Test User',
+                email: document.getElementById('email').value.trim() || 'test@test.com',
+                phone: document.getElementById('phone').value.trim(),
+                reference: getReference() || 'TEST-REF'
+            },
+            photoPreview: photoData,
+            createdAt: new Date().toISOString(),
+            status: 'test',
+            isTest: true
+        };
+        try {
+            localStorage.setItem('christmasPhotoMagicOrderDraft', JSON.stringify(testDraft));
+            say('TEST mode: Test order saved! No payment charged.');
+            testBtn.textContent = 'TEST SAVED ✓';
+            setTimeout(function(){ testBtn.textContent = 'TEST'; }, 2500);
+        } catch (err) { say('Could not save test draft. Try a smaller image.'); }
+    });
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        if (!photoData) { say('Please upload your portrait first.'); return; }
+        if (!form.reportValidity()) return;
+        let draft = {
+            packageId: pkg,
+            amountCentavos: pkg === 'premium' ? 14900 : 9900,
+            styleId: styleId,
+            styleName: styleName,
+            customer: {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                reference: getReference()
+            },
+            photoPreview: photoData,
+            createdAt: new Date().toISOString(),
+            status: 'draft'
+        };
+        try {
+            localStorage.setItem('christmasPhotoMagicOrderDraft', JSON.stringify(draft));
+            say('Demo order draft saved! Backend connection is not yet active.');
+        } catch (err) { say('Could not save draft. Try a smaller image.'); }
+    });
+})();
+</script>
 </body>
 </html>
