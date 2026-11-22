@@ -9,37 +9,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --radius: 0.75rem;
-            --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-            --font-body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --pine: oklch(31% .09 153);
-            --pine-deep: oklch(19% .07 153);
-            --holly: oklch(54% .22 27);
-            --gold: oklch(76% .15 79);
-            --snow: oklch(99% .008 91);
-            --ice: oklch(95% .025 165);
-            --background: var(--snow);
-            --foreground: var(--pine-deep);
-            --card: oklch(99.5% .006 91);
-            --card-foreground: var(--pine-deep);
-            --muted: oklch(95% .015 145);
-            --muted-foreground: oklch(47% .04 150);
-            --border: oklch(87% .035 105);
-            --input: oklch(87% .035 105);
-            --ring: oklch(62% .12 150);
-            --primary: var(--holly);
-            --primary-foreground: var(--snow);
-        }
+        :root { --radius: 0.75rem; --font-display: "Playfair Display", Georgia, "Times New Roman", serif; --font-body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; --pine: oklch(31% .09 153); --pine-deep: oklch(19% .07 153); --holly: oklch(54% .22 27); --gold: oklch(76% .15 79); --snow: oklch(99% .008 91); --ice: oklch(95% .025 165); --background: var(--snow); --foreground: var(--pine-deep); --card: oklch(99.5% .006 91); --card-foreground: var(--pine-deep); --muted: oklch(95% .015 145); --muted-foreground: oklch(47% .04 150); --border: oklch(87% .035 105); --input: oklch(87% .035 105); --ring: oklch(62% .12 150); --primary: var(--holly); --primary-foreground: var(--snow); }
         * { box-sizing: border-box; }
         body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         .site-header { border-bottom: 1px solid var(--border); background: var(--background); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background-color: oklch(99% .008 91 / 0.9); }
         .site-header-inner { width: min(100% - 40px, 1120px); min-height: 72px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
         .brand-lockup { color: var(--pine-deep); display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; text-decoration: none; }
         .brand-mark { background: var(--ice); border-radius: 12px; width: 40px; height: 40px; display: grid; place-items: center; font-size: 22px; }
-        .brand-color { color: var(--pine); }
-        .brand-gold { color: var(--gold); }
-        .back-link { color: var(--muted-foreground); display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; text-decoration: none; transition: color 0.2s; }
+        .brand-color { color: var(--pine); } .brand-gold { color: var(--gold); }
+        .back-link { color: var(--muted-foreground); display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; text-decoration: none; }
         .back-link:hover { color: var(--holly); }
         .page { width: min(100% - 40px, 850px); margin: 0 auto; padding: 40px 0 80px; }
         .intro { text-align: center; margin-bottom: 40px; }
@@ -50,96 +28,72 @@
         .test-banner { display: none; background: var(--gold); color: var(--pine-deep); text-align: center; font-weight: 700; font-size: 14px; letter-spacing: 0.05em; padding: 10px 16px; border-radius: 12px; margin-bottom: 20px; }
         .test-banner.show { display: block; }
         .steps-progress { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 40px; padding: 0; list-style: none; }
-        .steps-progress li { border-top: 3px solid var(--border); color: var(--muted-foreground); text-align: center; padding-top: 10px; font-size: 13px; font-weight: 600; transition: all 0.2s ease; }
+        .steps-progress li { border-top: 3px solid var(--border); color: var(--muted-foreground); text-align: center; padding-top: 10px; font-size: 13px; font-weight: 600; }
         .steps-progress li.is-current, .steps-progress li.is-complete { border-color: var(--holly); color: var(--holly); }
         .panel { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 28px; margin-bottom: 24px; box-shadow: 0 4px 20px oklch(20% .05 150 / 0.04); }
         .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
         .head h2 { font-family: var(--font-display); font-size: 22px; margin: 0; color: var(--pine-deep); display: flex; align-items: center; gap: 10px; }
         .num { color: var(--gold); font-family: var(--font-body); font-size: 14px; font-weight: 700; }
         .head p { color: var(--muted-foreground); font-size: 14px; margin: 4px 0 0; }
-        .upload { display: block; border: 2px dashed var(--border); background: var(--background); border-radius: 24px; min-height: 240px; cursor: pointer; overflow: hidden; transition: border-color 0.2s, background 0.2s; position: relative; }
+        .upload { display: block; border: 2px dashed var(--border); background: var(--background); border-radius: 24px; min-height: 240px; cursor: pointer; overflow: hidden; position: relative; }
         .upload:hover, .upload.is-dragging { border-color: var(--pine); background: var(--ice); }
         .upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
         .prompt { min-height: 240px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; text-align: center; padding: 24px; pointer-events: none; }
         .upload-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--ice); color: var(--pine); display: grid; place-items: center; }
-        .prompt strong { font-size: 16px; color: var(--pine-deep); }
-        .prompt span { font-size: 13px; color: var(--muted-foreground); }
+        .prompt strong { font-size: 16px; color: var(--pine-deep); } .prompt span { font-size: 13px; color: var(--muted-foreground); }
         .preview { padding: 16px; text-align: center; }
-        .preview img { max-height: 320px; max-width: 100%; object-fit: contain; border-radius: 12px; box-shadow: 0 8px 24px oklch(20% .05 150 / 0.1); }
+        .preview img { max-height: 320px; max-width: 100%; object-fit: contain; border-radius: 12px; }
         .preview button { border: 0; background: none; color: var(--holly); cursor: pointer; font-weight: 600; text-decoration: underline; font-size: 13px; margin-top: 8px; }
         .hide { display: none !important; }
         .packages { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .pkg { position: relative; display: flex; flex-direction: column; border: 1.5px solid var(--border); background: var(--background); border-radius: 20px; padding: 24px; cursor: pointer; transition: all 0.2s ease; }
+        .pkg { position: relative; display: flex; flex-direction: column; border: 1.5px solid var(--border); background: var(--background); border-radius: 20px; padding: 24px; cursor: pointer; }
         .pkg:hover { border-color: var(--pine); }
         .pkg.selected { border-color: var(--holly); box-shadow: 0 0 0 1px var(--holly), 0 8px 24px oklch(54% .22 27 / 0.1); }
         .pkg.prem.selected { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 8px 24px oklch(76% .15 79 / 0.15); }
         .pkg input { position: absolute; opacity: 0; }
-        .tag { font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: var(--pine); text-transform: uppercase; }
-        .prem .tag { color: var(--gold); }
+        .tag { font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: var(--pine); text-transform: uppercase; } .prem .tag { color: var(--gold); }
         .price { font-family: var(--font-display); font-size: 36px; color: var(--pine-deep); margin: 12px 0 4px; line-height: 1; }
         .price small { font-size: 16px; font-weight: 400; color: var(--muted-foreground); }
         .pkgname { font-size: 15px; font-weight: 700; color: var(--pine-deep); }
         .pkg ul { padding-left: 18px; margin: 16px 0 0; line-height: 1.8; font-size: 13px; color: var(--muted-foreground); }
-        .pkg ul li::marker { color: var(--pine); }
         .styles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-        .style { background: var(--background); border: 1.5px solid var(--border); border-radius: 16px; padding: 10px; text-align: left; cursor: pointer; transition: all 0.2s ease; position: relative; }
-        .style:hover { border-color: var(--pine); }
-        .style.selected { border-color: var(--holly); box-shadow: 0 0 0 1px var(--holly); }
+        .style { background: var(--background); border: 1.5px solid var(--border); border-radius: 16px; padding: 10px; text-align: left; cursor: pointer; position: relative; }
+        .style:hover { border-color: var(--pine); } .style.selected { border-color: var(--holly); box-shadow: 0 0 0 1px var(--holly); }
         .art { aspect-ratio: 4/5; border-radius: 10px; display: grid; place-items: center; position: relative; overflow: hidden; font-size: 42px; margin-bottom: 10px; }
-        .art i { position: absolute; right: 10px; top: 10px; font-style: normal; font-size: 18px; background: rgba(255,255,255,0.8); backdrop-filter: blur(4px); border-radius: 50%; width: 28px; height: 28px; display: grid; place-items: center; }
-        .style strong { display: block; font-size: 14px; margin: 0 0 4px; color: var(--pine-deep); }
-        .style small { display: block; font-size: 12px; color: var(--muted-foreground); line-height: 1.4; }
-        .classic { background: linear-gradient(135deg, oklch(85% .1 80), oklch(54% .22 27)); }
-        .snow { background: linear-gradient(135deg, oklch(95% .02 220), oklch(75% .08 220)); }
-        .luxury { background: linear-gradient(135deg, oklch(90% .1 85), oklch(65% .12 70)); }
-        .cozy { background: linear-gradient(135deg, oklch(85% .08 60), oklch(50% .1 40)); }
-        .candy { background: linear-gradient(135deg, oklch(90% .1 350), oklch(75% .15 350)); }
-        .soft { background: linear-gradient(135deg, oklch(95% .03 150), oklch(80% .06 150)); }
+        .art i { position: absolute; right: 10px; top: 10px; font-style: normal; font-size: 18px; background: rgba(255,255,255,0.8); border-radius: 50%; width: 28px; height: 28px; display: grid; place-items: center; }
+        .style strong { display: block; font-size: 14px; margin: 0 0 4px; color: var(--pine-deep); } .style small { display: block; font-size: 12px; color: var(--muted-foreground); line-height: 1.4; }
+        .classic { background: linear-gradient(135deg, oklch(85% .1 80), oklch(54% .22 27)); } .snow { background: linear-gradient(135deg, oklch(95% .02 220), oklch(75% .08 220)); } .luxury { background: linear-gradient(135deg, oklch(90% .1 85), oklch(65% .12 70)); } .cozy { background: linear-gradient(135deg, oklch(85% .08 60), oklch(50% .1 40)); } .candy { background: linear-gradient(135deg, oklch(90% .1 350), oklch(75% .15 350)); } .soft { background: linear-gradient(135deg, oklch(95% .03 150), oklch(80% .06 150)); }
         .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .fields label { display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 600; color: var(--pine-deep); }
-        .fields input { border: 1px solid var(--input); background: var(--background); border-radius: 12px; padding: 14px 16px; font: 15px var(--font-body); color: var(--foreground); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+        .fields input { border: 1px solid var(--input); background: var(--background); border-radius: 12px; padding: 14px 16px; font: 15px var(--font-body); color: var(--foreground); outline: none; }
         .fields input:focus { border-color: var(--pine); box-shadow: 0 0 0 3px oklch(62% .12 150 / 0.15); }
         .optional { font-weight: 400; color: var(--muted-foreground); }
         .consent { display: flex; align-items: flex-start; gap: 12px; margin-top: 24px; font-size: 13px; line-height: 1.6; color: var(--muted-foreground); }
         .consent input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--holly); flex-shrink: 0; }
         .summary { background: linear-gradient(145deg, var(--pine), var(--pine-deep) 66%, oklch(25% .08 153)); color: var(--snow); border-radius: 24px; padding: 28px; box-shadow: 0 12px 32px oklch(20% .08 150 / 0.15); margin-top: 32px; }
         .summary > div { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid oklch(100% 0 0 / 0.15); font-size: 14px; }
-        .summary > div span { color: oklch(85% .03 150); }
-        .summary > div strong { text-align: right; }
-        .summary .total { border: 0; padding: 20px 0 0; font-size: 16px; }
-        .total strong { font-family: var(--font-display); font-size: 32px; color: var(--gold); }
-        .cta { width: 100%; border: 0; border-radius: 14px; background: var(--gold); color: var(--pine-deep); padding: 16px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 24px; transition: transform 0.1s, background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .cta:hover { background: oklch(82% .16 79); transform: translateY(-1px); }
-        .cta:active { transform: translateY(0); }
+        .summary > div span { color: oklch(85% .03 150); } .summary > div strong { text-align: right; }
+        .summary .total { border: 0; padding: 20px 0 0; font-size: 16px; } .total strong { font-family: var(--font-display); font-size: 32px; color: var(--gold); }
+        .cta { width: 100%; border: 0; border-radius: 14px; background: var(--gold); color: var(--pine-deep); padding: 16px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 24px; transition: transform 0.1s, background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+        .cta:hover { background: oklch(82% .16 79); transform: translateY(-1px); } .cta:active { transform: translateY(0); } .cta:disabled { opacity: 0.6; cursor: wait; }
         .cta.test-btn { max-width: 320px; margin: 16px auto 0; padding: 12px; font-size: 18px; letter-spacing: 0.05em; }
         .note { text-align: center; font-size: 12px; color: oklch(85% .03 150); margin: 16px 0 0; }
-        .notice { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--pine-deep); color: var(--snow); padding: 14px 24px; border-radius: 14px; max-width: calc(100% - 48px); font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px oklch(0% 0 0 / 0.2); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.32, 1); z-index: 100; }
+        .notice { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--pine-deep); color: var(--snow); padding: 14px 24px; border-radius: 14px; max-width: calc(100% - 48px); font-size: 14px; font-weight: 500; box-shadow: 0 8px 24px oklch(0% 0 0 / 0.2); opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 100; }
         .notice.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-        .foot { text-align: center; color: var(--muted-foreground); font-size: 13px; padding: 40px 0; border-top: 1px solid var(--border); margin-top: 40px; }
-        .foot span { color: var(--gold); }
-        @media (max-width: 700px) {
-            .page { width: min(100% - 24px, 850px); padding: 24px 0 60px; }
-            .panel { padding: 20px; border-radius: 20px; }
-            .packages { grid-template-columns: 1fr; }
-            .styles { grid-template-columns: repeat(2, 1fr); }
-            .fields { grid-template-columns: 1fr; }
-            .head { flex-direction: column; gap: 4px; }
-            .steps-progress { margin-bottom: 28px; }
-            .steps-progress li { font-size: 11px; }
-        }
+        .foot { text-align: center; color: var(--muted-foreground); font-size: 13px; padding: 40px 0; border-top: 1px solid var(--border); margin-top: 40px; } .foot span { color: var(--gold); }
+        .result-panel { background: #0a2e1a; color: #fff; border-radius: 24px; padding: 28px; margin-top: 24px; }
+        .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+        .result-card { background: rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; padding: 8px; text-align: center; }
+        .result-card img { width: 100%; border-radius: 8px; display: block; }
+        .dl-btn { display: inline-block; background: #f6d77a; color: #0a2e1a; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; margin-top: 8px; }
+        @media (max-width: 700px) { .page { width: min(100% - 24px, 850px); padding: 24px 0 60px; } .panel { padding: 20px; border-radius: 20px; } .packages { grid-template-columns: 1fr; } .styles { grid-template-columns: repeat(2, 1fr); } .fields { grid-template-columns: 1fr; } .head { flex-direction: column; gap: 4px; } .steps-progress { margin-bottom: 28px; } .steps-progress li { font-size: 11px; } .result-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
     <header class="site-header">
         <div class="site-header-inner">
-            <a class="brand-lockup" href="index.html">
-                <span class="brand-mark" aria-hidden="true">🎄</span>
-                <span>Christmas <span class="brand-color">Photo</span> <span class="brand-gold">Magic</span></span>
-            </a>
-            <a class="back-link" href="index.html">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-                Back to Home
-            </a>
+            <a class="brand-lockup" href="index.html"><span class="brand-mark">🎄</span><span>Christmas <span class="brand-color">Photo</span> <span class="brand-gold">Magic</span></span></a>
+            <a class="back-link" href="index.html">← Back to Home</a>
         </div>
     </header>
     <main class="page">
@@ -149,153 +103,88 @@
             <p>Upload one portrait, choose your holiday look, and let the magic begin.</p>
         </section>
         <div id="testBanner" class="test-banner">🧪 TEST MODE — No payment will be charged</div>
-        <ul class="steps-progress">
-            <li class="is-current">1. Customize</li>
-            <li>2. Payment</li>
-            <li>3. Your photos</li>
-        </ul>
+        <ul class="steps-progress"><li class="is-current">1. Customize</li><li>2. Payment</li><li>3. Your photos</li></ul>
         <form id="form">
             <section class="panel">
-                <div class="head">
-                    <h2><span class="num">01</span> Your portrait</h2>
-                    <p>Choose one clear photo</p>
-                </div>
+                <div class="head"><h2><span class="num">01</span> Your portrait</h2><p>Choose one clear photo</p></div>
                 <label class="upload" for="file" id="uploadZone">
                     <input id="file" type="file" accept="image/*" required>
                     <div class="prompt" id="prompt">
-                        <div class="upload-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-                        </div>
+                        <div class="upload-icon">+</div>
                         <strong>Tap or drop your photo here</strong>
                         <span>JPG, PNG or WEBP · Max 10 MB</span>
                         <span>A well-lit photo facing the camera works best.</span>
                     </div>
-                    <div id="previewWrap" class="preview hide">
-                        <img id="preview" alt="Portrait preview">
-                        <div>Your photo · <button id="remove" type="button">Remove</button></div>
-                    </div>
+                    <div id="previewWrap" class="preview hide"><img id="preview" alt="Portrait preview"><div>Your photo · <button id="remove" type="button">Remove</button></div></div>
                 </label>
             </section>
             <section class="panel">
-                <div class="head">
-                    <h2><span class="num">02</span> Choose your package</h2>
-                </div>
+                <div class="head"><h2><span class="num">02</span> Choose your package</h2></div>
                 <div class="packages">
                     <label class="pkg selected" data-pkg="basic">
                         <input type="radio" name="package" value="basic" checked>
-                        <span class="tag">Basic</span>
-                        <span class="price">₱99<small>.00</small></span>
-                        <span class="pkgname">Christmas Photo Pack</span>
-                        <ul>
-                            <li>5 AI Christmas photos</li>
-                            <li>Choose a photo style</li>
-                            <li>Download your photos</li>
-                        </ul>
+                        <span class="tag">Basic</span><span class="price">₱99<small>.00</small></span><span class="pkgname">Christmas Photo Pack</span>
+                        <ul><li>1 Ready-made text-to-image photo</li><li>Choose a photo style</li><li>Download your photos</li></ul>
                     </label>
                     <label class="pkg prem" data-pkg="premium">
                         <input type="radio" name="package" value="premium">
-                        <span class="tag">Premium ✦</span>
-                        <span class="price">₱149<small>.00</small></span>
-                        <span class="pkgname">Photo + Video Magic</span>
-                        <ul>
-                            <li>5+ AI Christmas photos</li>
-                            <li>Choose a photo style</li>
-                            <li>Music slideshow video</li>
-                            <li>Download photos & video</li>
-                        </ul>
+                        <span class="tag">Premium ✦</span><span class="price">₱149<small>.00</small></span><span class="pkgname">Photo + Video Magic</span>
+                        <ul><li>5 Ready-made text-to-image photos</li><li>Choose a photo style</li><li>30s Music slideshow video</li><li>Download photos & video</li></ul>
                     </label>
                 </div>
             </section>
             <section class="panel">
-                <div class="head">
-                    <h2><span class="num">03</span> Select a Christmas style</h2>
-                    <p>Choose one style</p>
-                </div>
+                <div class="head"><h2><span class="num">03</span> Select a Christmas style</h2><p>Choose one style</p></div>
                 <div class="styles">
-                    <button class="style selected" type="button" data-style="classic">
-                        <div class="art classic">🎄<i>✨</i></div>
-                        <strong>Classic Christmas</strong>
-                        <small>Warm lights & red decor</small>
-                    </button>
-                    <button class="style" type="button" data-style="snow">
-                        <div class="art snow">❄<i>✦</i></div>
-                        <strong>Winter Wonderland</strong>
-                        <small>Snow & icy blue tones</small>
-                    </button>
-                    <button class="style" type="button" data-style="luxury">
-                        <div class="art luxury">✧<i>🎁</i></div>
-                        <strong>Luxury Gold</strong>
-                        <small>Elegant gold studio</small>
-                    </button>
-                    <button class="style" type="button" data-style="cozy">
-                        <div class="art cozy">🕯<i>❄</i></div>
-                        <strong>Cozy Christmas</strong>
-                        <small>Warm cabin atmosphere</small>
-                    </button>
-                    <button class="style" type="button" data-style="candy">
-                        <div class="art candy">🍬<i>🎀</i></div>
-                        <strong>Candy Christmas</strong>
-                        <small>Playful festive colors</small>
-                    </button>
-                    <button class="style" type="button" data-style="soft">
-                        <div class="art soft">⭐<i>✨</i></div>
-                        <strong>Holiday Portrait</strong>
-                        <small>Soft elegant portrait</small>
-                    </button>
+                    <button class="style selected" type="button" data-style="classic"><div class="art classic">🎄<i>✨</i></div><strong>Classic Christmas</strong><small>Warm lights & red decor</small></button>
+                    <button class="style" type="button" data-style="snow"><div class="art snow">❄<i>✦</i></div><strong>Winter Wonderland</strong><small>Snow & icy blue tones</small></button>
+                    <button class="style" type="button" data-style="luxury"><div class="art luxury">✧<i>🎁</i></div><strong>Luxury Gold</strong><small>Elegant gold studio</small></button>
+                    <button class="style" type="button" data-style="cozy"><div class="art cozy">🕯<i>❄</i></div><strong>Cozy Christmas</strong><small>Warm cabin atmosphere</small></button>
+                    <button class="style" type="button" data-style="candy"><div class="art candy">🍬<i>🎀</i></div><strong>Candy Christmas</strong><small>Playful festive colors</small></button>
+                    <button class="style" type="button" data-style="soft"><div class="art soft">⭐<i>✨</i></div><strong>Holiday Portrait</strong><small>Soft elegant portrait</small></button>
                 </div>
             </section>
             <section class="panel">
-                <div class="head">
-                    <h2><span class="num">04</span> Your details</h2>
-                    <p>For your order</p>
-                </div>
+                <div class="head"><h2><span class="num">04</span> Your details</h2><p>For your order</p></div>
                 <div class="fields">
-                    <label>Full name
-                        <input id="name" type="text" placeholder="Your full name" autocomplete="name" maxlength="100" required>
-                    </label>
-                    <label>Email address
-                        <input id="email" type="email" placeholder="you@example.com" autocomplete="email" maxlength="150" required>
-                    </label>
-                    <label>Reference number
-                        <input id="reference" type="text" placeholder="e.g. 1234567890123" autocomplete="off" maxlength="30">
-                    </label>
-                    <label>Mobile number <span class="optional">(optional)</span>
-                        <input id="phone" type="tel" placeholder="09XX XXX XXXX" autocomplete="tel" maxlength="30">
-                    </label>
+                    <label>Full name<input id="name" type="text" placeholder="Your full name" autocomplete="name" maxlength="100" required></label>
+                    <label>Email address<input id="email" type="email" placeholder="you@example.com" autocomplete="email" maxlength="150" required></label>
+                    <label>Reference number<input id="reference" type="text" placeholder="e.g. 1234567890123" autocomplete="off" maxlength="30"></label>
+                    <label>Mobile number <span class="optional">(optional)</span><input id="phone" type="tel" placeholder="09XX XXX XXXX" autocomplete="tel" maxlength="30"></label>
                 </div>
-                <label class="consent">
-                    <input id="consent" type="checkbox" required>
-                    <span>I confirm that I have permission to use this photo and understand it will be processed to create my Christmas images.</span>
-                </label>
+                <label class="consent"><input id="consent" type="checkbox" required><span>I confirm that I have permission to use this photo and understand it will be processed to create my Christmas images.</span></label>
             </section>
             <section class="summary">
-                <div>
-                    <span>Your package</span>
-                    <strong id="sumPkg">Basic · 5 photos</strong>
-                </div>
-                <div>
-                    <span>Selected style</span>
-                    <strong id="sumStyle">Classic Christmas</strong>
-                </div>
-                <div>
-                    <span>Reference</span>
-                    <strong id="sumRef">—</strong>
-                </div>
-                <div class="total">
-                    <span>Total</span>
-                    <strong id="sumPrice">₱99.00</strong>
-                </div>
-                <button class="cta" id="submit" type="submit">
-                    Create my order
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </button>
+                <div><span>Your package</span><strong id="sumPkg">Basic · 1 photo</strong></div>
+                <div><span>Selected style</span><strong id="sumStyle">Classic Christmas</strong></div>
+                <div><span>Reference</span><strong id="sumRef">—</strong></div>
+                <div class="total"><span>Total</span><strong id="sumPrice">₱99.00</strong></div>
+                <button class="cta" id="submit" type="submit">Create my order →</button>
                 <button class="cta test-btn" id="testBtn" type="button">TEST</button>
                 <p class="note">TEST = free test order, no payment. Create my order = real checkout.</p>
             </section>
         </form>
-        <footer class="foot">
-            © 2026 Christmas Photo Magic · Made with holiday cheer <span>✦</span>
-        </footer>
+
+        <!-- RESULT: IMAGES + DOWNLOAD + SLIDESHOW -->
+        <section class="result-panel" id="resultPanel" style="display:none; text-align:center;">
+            <h2 style="font-family:var(--font-display); margin:0;">Your Christmas Photos ✨</h2>
+            <p id="resultMsg" style="color:#c8d8cc;">Rendering...</p>
+            <div id="resultImages" class="result-grid"></div>
+            <button id="downloadAllBtn" type="button" class="cta" style="display:none; max-width:360px; margin:16px auto 0;">⬇ Download All Photos</button>
+            <p id="downloadAllNote" style="font-size:12px; color:#c8d8cc; display:none;">Allow multiple downloads in your browser.</p>
+            <p id="resultRef" style="font-size:13px; color:#c8d8cc; margin-top:12px;"></p>
+            <div id="slideshowBox" style="margin-top:20px; border-top:1px solid rgba(255,255,255,0.15); padding-top:20px;">
+                <h3 style="margin:0 0 6px;">Slideshow Video - 30 Seconds</h3>
+                <p style="font-size:13px; color:#c8d8cc; margin:0 0 12px;">5 photos x 6 seconds + Music. Premium only.</p>
+                <button id="slideshowBtn" type="button" class="cta" style="margin:0;">▶ Create 30s Slideshow Video</button>
+                <p id="slideshowProgress" style="font-size:13px; margin:10px 0 0;"></p>
+                <video id="slideshowPreview" controls playsinline style="display:none; width:100%; max-width:360px; margin:16px auto 0; border-radius:16px; background:#000;"></video>
+                <a id="slideshowDownload" href="#" download="christmas-slideshow-30s.mp4" style="display:none; margin:14px auto 0; background:#f6d77a; color:#0a2e1a; padding:12px 22px; border-radius:12px; font-weight:700; text-decoration:none;">⬇ Download 30s Video</a>
+                <p style="font-size:12px; color:#c8d8cc; margin:8px 0 0;">MP4 - plays on iPhone, Android & Facebook.</p>
+            </div>
+        </section>
+
+        <footer class="foot">© 2026 Christmas Photo Magic · Made with holiday cheer <span>✦</span></footer>
     </main>
     <div id="notice" class="notice" role="status"></div>
     <script>
@@ -310,43 +199,27 @@
     const uploadZone = document.getElementById('uploadZone');
     const referenceInput = document.getElementById('reference');
     const testBtn = document.getElementById('testBtn');
-
     let photoData = '';
     let pkg = 'basic';
     let styleId = 'classic';
     let styleName = 'Classic Christmas';
-
-    function getReference() {
-        if (referenceInput && referenceInput.value) return referenceInput.value.trim();
-        return '';
-    }
-
+    let generatedImageUrls = [];
+    let slideshowBlobUrl = null;
+    function getReference() { if (referenceInput && referenceInput.value) return referenceInput.value.trim(); return ''; }
     const params = new URLSearchParams(window.location.search);
     const isTestPage = params.get('test') === '1';
     const urlPkg = params.get('pkg');
     if (isTestPage) document.getElementById('testBanner').classList.add('show');
     if (urlPkg === 'premium') {
         pkg = 'premium';
-        document.querySelectorAll('.pkg').forEach(function(c){
-            c.classList.toggle('selected', c.dataset.pkg === 'premium');
-        });
-        document.getElementById('sumPkg').textContent = 'Premium - 5+ photos + video';
+        document.querySelectorAll('.pkg').forEach(function(c){ c.classList.toggle('selected', c.dataset.pkg === 'premium'); });
+        document.getElementById('sumPkg').textContent = 'Premium - 5 photos + video';
         document.getElementById('sumPrice').textContent = 'P149.00';
     }
-
     if (referenceInput) {
-        referenceInput.addEventListener('input', function(){
-            document.getElementById('sumRef').textContent = referenceInput.value.trim() || '-';
-        });
+        referenceInput.addEventListener('input', function(){ document.getElementById('sumRef').textContent = referenceInput.value.trim() || '-'; });
     }
-
-    function say(msg) {
-        notice.textContent = msg;
-        notice.classList.add('show');
-        clearTimeout(say.t);
-        say.t = setTimeout(function(){ notice.classList.remove('show'); }, 4000);
-    }
-
+    function say(msg) { notice.textContent = msg; notice.classList.add('show'); clearTimeout(say.t); say.t = setTimeout(function(){ notice.classList.remove('show'); }, 4000); }
     file.addEventListener('change', function(){
         let f = file.files[0];
         if (!f) return;
@@ -356,22 +229,16 @@
         r.onload = function(){ photoData = r.result; img.src = photoData; wrap.classList.remove('hide'); prompt.classList.add('hide'); };
         r.readAsDataURL(f);
     });
-
-    document.getElementById('remove').addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        file.value = ''; photoData = ''; wrap.classList.add('hide'); prompt.classList.remove('hide');
-    });
-
+    document.getElementById('remove').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); file.value = ''; photoData = ''; wrap.classList.add('hide'); prompt.classList.remove('hide'); });
     document.querySelectorAll('.pkg').forEach(function(card){
         card.addEventListener('click', function(){
             pkg = card.dataset.pkg;
             document.querySelectorAll('.pkg').forEach(function(c){ c.classList.toggle('selected', c === card); });
             let premium = pkg === 'premium';
-            document.getElementById('sumPkg').textContent = premium ? 'Premium - 5+ photos + video' : 'Basic - 5 photos';
+            document.getElementById('sumPkg').textContent = premium ? 'Premium - 5 photos + video' : 'Basic - 1 photo';
             document.getElementById('sumPrice').textContent = premium ? 'P149.00' : 'P99.00';
         });
     });
-
     function addCheckBadge(element){
         document.querySelectorAll('.check-badge').forEach(function(b){ b.remove(); });
         const badge = document.createElement('div');
@@ -381,67 +248,114 @@
         element.querySelector('.art').appendChild(badge);
     }
     addCheckBadge(document.querySelector('.style.selected'));
-
     document.querySelectorAll('.style').forEach(function(card){
         card.addEventListener('click', function(){
             document.querySelectorAll('.style').forEach(function(c){ c.classList.remove('selected'); });
-            card.classList.add('selected');
-            addCheckBadge(card);
-            styleId = card.dataset.style;
-            styleName = card.querySelector('strong').textContent;
+            card.classList.add('selected'); addCheckBadge(card);
+            styleId = card.dataset.style; styleName = card.querySelector('strong').textContent;
             document.getElementById('sumStyle').textContent = styleName;
         });
     });
 
-    testBtn.addEventListener('click', function(){
-        if (!photoData) { say('Please upload your portrait first to test.'); return; }
-        const testDraft = {
-            packageId: pkg,
-            amountCentavos: 0,
-            styleId: styleId,
-            styleName: styleName,
-            customer: {
-                name: document.getElementById('name').value.trim() || 'Test User',
-                email: document.getElementById('email').value.trim() || 'test@test.com',
-                phone: document.getElementById('phone').value.trim(),
-                reference: getReference() || 'TEST-REF'
-            },
-            photoPreview: photoData,
-            createdAt: new Date().toISOString(),
-            status: 'test',
-            isTest: true
-        };
+    async function renderPhotos(isTest) {
+        if (!photoData) { say('Please upload your portrait first.'); return; }
+        const btn = isTest ? testBtn : submit;
+        const oldText = btn.textContent;
+        btn.textContent = 'Rendering... Please wait...'; btn.disabled = true;
+        document.getElementById('resultPanel').style.display = 'block';
+        document.getElementById('resultMsg').textContent = 'Rendering your Christmas photo with 【entity-Muse¦canonical_name=Muse】... This takes 20-50 seconds.';
+        document.getElementById('resultImages').innerHTML = '';
+        document.getElementById('downloadAllBtn').style.display = 'none';
+        document.getElementById('downloadAllNote').style.display = 'none';
         try {
-            localStorage.setItem('christmasPhotoMagicOrderDraft', JSON.stringify(testDraft));
-            say('TEST mode: Test order saved! No payment charged.');
-            testBtn.textContent = 'TEST SAVED ✓';
-            setTimeout(function(){ testBtn.textContent = 'TEST'; }, 2500);
-        } catch (err) { say('Could not save test draft. Try a smaller image.'); }
+            const res = await fetch('/api/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ photo: photoData, styleId: styleId, styleName: styleName, packageId: pkg, name: document.getElementById('name').value.trim() || 'Test User', reference: getReference() || (isTest ? 'TEST-REF' : ''), isTest: isTest })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Render failed');
+            generatedImageUrls = data.images;
+            document.getElementById('resultMsg').textContent = isTest ? 'TEST Render Complete - No payment charged ✓' : 'Your photos are ready! ✓';
+            document.getElementById('resultRef').textContent = data.reference ? 'Reference: ' + data.reference : '';
+            document.getElementById('resultImages').innerHTML = data.images.map((url, i) =>
+                `<div class="result-card"><img src="${url}" alt="Christmas photo ${i+1}"><p style="font-size:12px; margin:8px 0; color:#fff;">Photo ${i+1} - ${styleName}</p><a class="dl-btn" href="${url}" download="christmas-photo-${i+1}.png">⬇ Download Photo ${i+1}</a></div>`
+            ).join('');
+            document.getElementById('downloadAllBtn').style.display = 'flex';
+            document.getElementById('downloadAllNote').style.display = 'block';
+            document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth' });
+            say(isTest ? 'TEST render done!' : 'Render done!');
+        } catch (err) {
+            document.getElementById('resultMsg').textContent = 'Render failed: ' + err.message;
+            say('Render failed: ' + err.message);
+        } finally { btn.textContent = oldText; btn.disabled = false; }
+    }
+
+    testBtn.addEventListener('click', () => renderPhotos(true));
+    form.addEventListener('submit', (e) => { e.preventDefault(); if (!form.reportValidity()) return; renderPhotos(false); });
+
+    document.getElementById('downloadAllBtn').addEventListener('click', async () => {
+        if (!generatedImageUrls.length) { say('Generate photos first.'); return; }
+        say('Downloading ' + generatedImageUrls.length + ' photos... Allow multiple downloads.');
+        for (let i = 0; i < generatedImageUrls.length; i++) {
+            const a = document.createElement('a'); a.href = generatedImageUrls[i]; a.download = `christmas-photo-${i+1}.png`; document.body.appendChild(a); a.click(); a.remove();
+            await new Promise(r => setTimeout(r, 800));
+        }
+        say('All photos downloaded!');
     });
 
-    form.addEventListener('submit', function(e){
-        e.preventDefault();
-        if (!photoData) { say('Please upload your portrait first.'); return; }
-        if (!form.reportValidity()) return;
-        let draft = {
-            packageId: pkg,
-            amountCentavos: pkg === 'premium' ? 14900 : 9900,
-            styleId: styleId,
-            styleName: styleName,
-            customer: {
-                name: document.getElementById('name').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                reference: getReference()
-            },
-            photoPreview: photoData,
-            createdAt: new Date().toISOString(),
-            status: 'draft'
-        };
+    document.getElementById('slideshowBtn').addEventListener('click', async () => {
+        const btn = document.getElementById('slideshowBtn');
+        const progressEl = document.getElementById('slideshowProgress');
+        const videoEl = document.getElementById('slideshowPreview');
+        const downloadEl = document.getElementById('slideshowDownload');
+        if (!generatedImageUrls.length) { say('Generate photos first, then create slideshow.'); return; }
+        if (generatedImageUrls.length < 2) { say('Premium needs 5 photos for slideshow. Generate Premium first.'); return; }
+        btn.disabled = true; btn.textContent = 'Recording 30s... Keep this page open'; progressEl.textContent = '0% - Starting...'; videoEl.style.display = 'none'; downloadEl.style.display = 'none';
         try {
-            localStorage.setItem('christmasPhotoMagicOrderDraft', JSON.stringify(draft));
-            say('Demo order draft saved! Backend connection is not yet active.');
-        } catch (err) { say('Could not save draft. Try a smaller image.'); }
+            const mod = await import('/lib/slideshow.js');
+            const bitmaps = [];
+            for (const url of generatedImageUrls.slice(0, 5)) { const r = await fetch(url); const blob = await r.blob(); bitmaps.push(await mod.loadFilmPhoto(blob)); }
+            const canvas = document.createElement('canvas'); canvas.width = 720; canvas.height = 1280;
+            const ctx = canvas.getContext('2d'); const grain = mod.makeGrain(); const stream = canvas.captureStream(30);
+            try {
+                const mr = await fetch('/music/christmas.mp3');
+                if (mr.ok) {
+                    const audioCtx = new AudioContext();
+                    const buf = await audioCtx.decodeAudioData(await (await mr.blob()).arrayBuffer());
+                    const dest = audioCtx.createMediaStreamDestination();
+                    const src = audioCtx.createBufferSource(); src.buffer = buf; src.loop = true; src.connect(dest); src.start();
+                    dest.stream.getAudioTracks().forEach(t => stream.addTrack(t));
+                }
+            } catch {}
+            const type = mod.pickVideoType();
+            if (!type) throw new Error('This browser cannot record video. Use Safari or Chrome.');
+            const rec = new MediaRecorder(stream, { mimeType: type.mime, videoBitsPerSecond: 5000000 });
+            const chunks = []; rec.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+            const done = new Promise((resolve, reject) => { rec.onstop = resolve; rec.onerror = () => reject(new Error('Recording failed')); });
+            rec.start(250);
+            const start = performance.now();
+            const tick = () => {
+                const t = (performance.now() - start) / 1000;
+                if (t >= 30) { mod.drawFilmFrame(ctx, bitmaps, 30, grain); const track = stream.getVideoTracks()[0]; if (track.requestFrame) track.requestFrame(); rec.stop(); return; }
+                mod.drawFilmFrame(ctx, bitmaps, t, grain);
+                const track = stream.getVideoTracks()[0]; if (track.requestFrame) track.requestFrame();
+                progressEl.textContent = Math.round(t / 30 * 100) + '% - Recording 30s video...';
+                setTimeout(tick, 1000 / 30);
+            };
+            tick(); await done;
+            const mime = rec.mimeType || type.mime; const ext = mime.startsWith('video/mp4') ? 'mp4' : 'webm';
+            const blob = new Blob(chunks, { type: mime.split(';')[0] });
+            if (blob.size < 1024) throw new Error('Video was empty. Try again in Safari or Chrome.');
+            if (slideshowBlobUrl) URL.revokeObjectURL(slideshowBlobUrl);
+            slideshowBlobUrl = URL.createObjectURL(blob);
+            videoEl.src = slideshowBlobUrl; videoEl.style.display = 'block';
+            downloadEl.href = slideshowBlobUrl; downloadEl.download = `christmas-slideshow-30s.${ext}`; downloadEl.textContent = `⬇ Download 30s Video (.${ext.toUpperCase()})`; downloadEl.style.display = 'inline-block';
+            progressEl.textContent = 'Done! Your 30s slideshow is ready. Tap Download.';
+            videoEl.scrollIntoView({ behavior: 'smooth' });
+            say('Slideshow ready! Tap Download.');
+        } catch (e) { progressEl.textContent = 'Slideshow failed: ' + e.message; say('Slideshow failed: ' + e.message); }
+        finally { btn.disabled = false; btn.textContent = '▶ Create 30s Slideshow Video'; }
     });
 })();
 </script>
