@@ -15,9 +15,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Pasko Magic">
-<link rel="manifest" href="https://pasko-photo-magic.lovable.app/manifest.webmanifest">
-<link rel="apple-touch-icon" href="https://pasko-photo-magic.lovable.app/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://pasko-photo-magic.lovable.app/favicon.png" type="image/png" sizes="64x64">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="64x64">
 <link rel="preload" as="image" href="https://pasko-photo-magic.lovable.app/__l5e/assets-v1/33aa538a-af1c-448e-9062-7ec7ba19d450/pasko-christmas-studio.jpg">
 <script>document.documentElement.classList.add('js')</script>
 <style>
@@ -387,5 +387,5 @@ img.fade.loaded{opacity:1}
     size(); start(); requestAnimationFrame(() => cv.classList.add('on'));
 })();
 </script>
-</body>
+<script src="/pwa.js" defer></script><script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(()=>{})); }</script></body>
 </html>
