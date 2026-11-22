@@ -173,7 +173,6 @@ body[data-scene=night] .prem .tag{color:var(--gold)}
 body[data-scene=night] .pkg li:before{color:#7fe0a8}
 body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
 @media(prefers-reduced-motion:reduce){.stars{animation:none}}
-/* LOADING OVERLAY - SERVER-SIDE RENDER */
 .loading-overlay{position:fixed;inset:0;z-index:999;background:rgba(4,63,33,0.94);backdrop-filter:blur(8px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;text-align:center;padding:24px}
 .loading-overlay.show{display:flex}
 .loader-tree{font-size:64px;animation:sway 1.2s ease-in-out infinite}
@@ -239,7 +238,7 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
 <div><span>Reference</span><strong id="sumRef">—</strong></div>
 <div class="total"><span>Total</span><strong id="sumPrice">₱99</strong></div>
 <button class="cta" id="submit" type="submit">Create my Xmas photos</button>
-<button class="cta test-btn" id="testBtn" type="button">TEST</button>
+<button class="cta test-btn" id="testBtn" type="button">TEST - 5 Photos + Video (Free)</button>
 <p class="note">TEST = free test order, no payment. Create my Xmas photos = real checkout.</p></section>
 <p class="privacy">🔒 Private upload · Deleted after 30 days</p></form>
 <section class="result-panel" id="resultPanel" style="display:none"><h2>Your Christmas Photos ✨</h2><p id="resultMsg" style="color:#bfe0cb">Rendering...</p><div id="resultImages" class="result-grid"></div>
@@ -254,7 +253,6 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
 <div class="dock" id="dock"><div class="dock-p"><small id="dockPkg">Basic Magic</small><b id="dockPrice">₱99</b></div><button class="cta red" id="dockBtn" type="button">Create my Xmas photos</button></div>
 <button id="sceneBtn" class="scene-btn" type="button" title="Scene shuffles every 3 minutes. Tap to shuffle now."><span id="sceneIcon">❄</span><span id="sceneName">Snowy day</span></button>
 <div id="notice" class="notice" role="status"></div>
-<!-- LOADING OVERLAY -->
 <div id="loadingOverlay" class="loading-overlay">
   <div class="loader-tree">🎄</div>
   <h2 id="loadingTitle" style="margin:0;font-family:var(--display);font-size:24px;">Creating your Christmas magic...</h2>
@@ -283,7 +281,6 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
     referenceInput.addEventListener('input', () => { $('sumRef').textContent = referenceInput.value.trim() || '—'; });
     $('name').addEventListener('input', refreshSteps);
     function say(msg) { notice.textContent = msg; notice.classList.add('show'); clearTimeout(say.t); say.t = setTimeout(() => notice.classList.remove('show'), 4000); }
-    // LOADING HELPERS
     let loadingTimer = null;
     function showLoading(title){ $('loadingOverlay').classList.add('show'); $('loadingTitle').textContent = title; setProgress(0,'Starting...'); document.querySelectorAll('#loadingPhotos span').forEach(s=>s.classList.remove('done')); }
     function hideLoading(){ $('loadingOverlay').classList.remove('show'); if(loadingTimer){clearInterval(loadingTimer); loadingTimer=null;} }
@@ -304,7 +301,7 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
         slideshowAutoStarted = false;
         $('resultPanel').style.display = 'block'; $('dock').classList.add('off'); setStep(3);
         $('resultImages').innerHTML = ''; $('downloadAllBtn').style.display = 'none'; $('downloadAllNote').style.display = 'none'; $('slideshowProgress').textContent = '';
-        showLoading(isTest ? 'TEST: Creating your Christmas photo...' : 'Creating your 5 Christmas photos...');
+        showLoading(isTest ? 'TEST: Creating your 5 photos + video (free)...' : 'Creating your 5 Christmas photos...');
         const progressPromise = animateProgress(5, 85, 'Server is painting your portraits with Muse AI... Please wait...', 45000);
         try {
             const res = await fetch('/api/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ photo: photoData, packageId: pkg, name: $('name').value.trim() || 'Test User', reference: getReference() || (isTest ? 'TEST-REF' : ''), isTest: isTest }) });
@@ -322,8 +319,8 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
             setTimeout(hideLoading, 600);
             $('resultPanel').scrollIntoView({ behavior: 'smooth' });
             say(isTest ? 'TEST render done!' : 'Render done!');
-            if (pkg === 'premium' && generatedImageUrls.length >= 5 && !isTest && !slideshowAutoStarted) { slideshowAutoStarted = true; setTimeout(() => createServerVideo(), 800); }
-            if (pkg === 'premium' && isTest) say('Premium TEST: Tap Create 30s slideshow video to test server video.');
+            // FIXED: TEST = FULL FLOW - Premium auto-creates video even in TEST mode
+            if (pkg === 'premium' && generatedImageUrls.length >= 5 && !slideshowAutoStarted) { slideshowAutoStarted = true; say('TEST: 5 photos done! Now creating your 30s video automatically...'); setTimeout(() => createServerVideo(), 800); }
         } catch (err) { if (loadingTimer) { clearInterval(loadingTimer); loadingTimer = null; } hideLoading(); $('resultMsg').textContent = 'Render failed: ' + err.message; say('Render failed: ' + err.message); $('dock').classList.remove('off'); }
         finally { btn.textContent = oldText; btn.disabled = false; $('dockBtn').disabled = false; }
     }
@@ -331,7 +328,6 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
     form.addEventListener('submit', e => { e.preventDefault(); if (!form.reportValidity()) return; renderPhotos(false); });
     $('dockBtn').addEventListener('click', () => { if (!photoData) { say('Please upload your portrait first.'); zone.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; } submit.click(); });
     $('downloadAllBtn').addEventListener('click', async () => { if (!generatedImageUrls.length) { say('Generate photos first.'); return; } say('Downloading ' + generatedImageUrls.length + ' photos... Allow multiple downloads.'); for (let i = 0; i < generatedImageUrls.length; i++) { const a = document.createElement('a'); a.href = generatedImageUrls[i]; a.download = `christmas-photo-${i+1}.png`; document.body.appendChild(a); a.click(); a.remove(); await new Promise(r => setTimeout(r, 800)); } say('All photos downloaded!'); });
-    // SERVER-SIDE VIDEO - NO canvas, NO MediaRecorder
     async function createServerVideo(){
         if (!generatedImageUrls.length) { say('Generate photos first, then create slideshow.'); return; }
         if (generatedImageUrls.length < 2) { say('Premium needs 5 photos for slideshow. Generate Premium first.'); return; }

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pasko Photo Magic | Christmas Portraits from Your Photo</title>
-<meta name="theme-color" content="#043f21">
+<meta name="theme-color" content="#86b4d4">
 <meta name="description" content="Turn one favorite photo into five joyful Christmas portraits for the whole family.">
 <meta property="og:title" content="Pasko Photo Magic | Christmas Portraits from Your Photo">
 <meta property="og:description" content="One photo becomes five festive portraits made for sharing.">
@@ -31,17 +31,30 @@ a{color:inherit;text-decoration:none}
 ul,ol{list-style:none}
 
 /* ===== snow area: sky, aurora glow, distant pines, drifting mist ===== */
-.scene{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:linear-gradient(#bcd9e6 0%,#d9ebf0 38%,#f1f6f3 72%,#fffdf7 100%)}
+.scene{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:linear-gradient(#86b4d4 0%,#b9d6e8 24%,#e6e9ee 42%,#f8e3d0 56%,#fcd8ae 64%,#ffeed6 74%,#fffdf7 100%)}
 .scene>*{position:absolute;inset:0}
-.glow{background:radial-gradient(60% 40% at 78% 8%,#fff7d8cc,transparent 70%),radial-gradient(50% 35% at 12% 20%,#ffffff99,transparent 70%);animation:breathe 9s ease-in-out infinite alternate}
+.glow{background:radial-gradient(70% 38% at 66% 66%,#ffe9b8dd,#ffd9a066 45%,transparent 72%),radial-gradient(50% 30% at 15% 20%,#ffffff80,transparent 70%);animation:breathe 9s ease-in-out infinite alternate}
 @keyframes breathe{from{opacity:.65;transform:scale(1)}to{opacity:1;transform:scale(1.06)}}
-.pines{inset:auto -5% 0 -5%;height:190px;background:var(--trees) repeat-x bottom/360px 160px;opacity:.2;transform:translate3d(0,calc(var(--sy)*-.04px),0);-webkit-mask-image:linear-gradient(transparent,#000 60%);mask-image:linear-gradient(transparent,#000 60%)}
-.pines.far{height:140px;opacity:.12;background-size:260px 116px;transform:translate3d(0,calc(var(--sy)*-.02px),0)}
-.mist{inset:auto 0 0 0;height:38vh;background:linear-gradient(transparent,#ffffffb3);animation:drift 14s ease-in-out infinite alternate}
+.pines{inset:auto -5% 0 -5%;height:190px;background:var(--trees) repeat-x bottom/360px 160px;opacity:.42;transform:translate3d(0,calc(var(--sy)*-.04px),0);-webkit-mask-image:linear-gradient(transparent,#000 60%);mask-image:linear-gradient(transparent,#000 60%)}
+.pines.far{height:140px;opacity:.24;background-size:260px 116px;transform:translate3d(0,calc(var(--sy)*-.02px),0)}
+.mist{inset:auto 0 0 0;height:38vh;background:linear-gradient(transparent,#fff1dcb8);animation:drift 14s ease-in-out infinite alternate}
 @keyframes drift{from{transform:translateX(-2%)}to{transform:translateX(2%)}}
 #snow{position:fixed;inset:0;width:100%;height:100%;z-index:45;pointer-events:none;opacity:0;transition:opacity 2.4s ease}
 #snow.on{opacity:1}
 :root{--trees:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='160' viewBox='0 0 360 160'%3E%3Cg fill='%230b5a31'%3E%3Cpath d='M50 10L78 60H64L88 110H68L96 160H4L32 110H12L36 60H22Z'/%3E%3Cpath d='M170 10L198 60H184L208 110H188L216 160H124L152 110H132L156 60H142Z'/%3E%3Cpath d='M300 10L328 60H314L338 110H318L346 160H254L282 110H262L286 60H272Z'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Cpath d='M50 10L63 35L56 32L50 38L44 32L37 35Z'/%3E%3Cpath d='M170 10L183 35L176 32L170 38L164 32L157 35Z'/%3E%3Cpath d='M300 10L313 35L306 32L300 38L294 32L287 35Z'/%3E%3C/g%3E%3C/svg%3E")}
+
+/* ===== snowy mountain morning ===== */
+.sun{inset:auto auto 31vh 62%;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle,#fffdf0 0 35%,#ffe7a8 62%,#ffcf85 100%);box-shadow:0 0 60px 30px #ffe0a655,0 0 160px 80px #ffd29a38;opacity:0;transform:translateY(70px) scale(.9);animation:rise 7s var(--ease) .3s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.rays{background:conic-gradient(from 195deg at 67% 66%,transparent 0 6%,#fff4d63a 9%,transparent 13%,#fff4d62e 17%,transparent 23%,#fff4d628 27%,transparent 34%);-webkit-mask-image:linear-gradient(#000,transparent 85%);mask-image:linear-gradient(#000,transparent 85%);animation:breathe 12s ease-in-out infinite alternate}
+.mtn{inset:auto -5% 0 -5%;height:50vh;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='300' viewBox='0 0 800 300'%3E%3Cpath fill='%23bcd2e3' d='M0 300V190L90 110L140 150L230 60L320 160L400 120L500 40L610 150L690 100L800 170V300Z'/%3E%3Cpath fill='%23fffaf0' d='M230 60L192 98L215 92L230 108L248 90L266 100Z M500 40L452 84L472 76L492 98L514 74L540 90L548 88Z M90 110L62 138L76 132L90 148L106 130L120 140Z M690 100L664 126L678 120L692 134L708 118L734 128Z'/%3E%3C/svg%3E") repeat-x left bottom/auto 100%;opacity:.92;transform:translate3d(0,calc(var(--sy)*-.015px),0)}
+.mtn.near{height:38vh;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='300' viewBox='0 0 800 300'%3E%3Cpath fill='%238eaecb' d='M0 300V220L70 170L130 205L220 120L300 210L380 160L470 80L560 200L640 150L720 210L800 180V300Z'/%3E%3Cpath fill='%23ffd9b0' fill-opacity='.35' d='M470 80L560 200L500 200L470 140Z M220 120L300 210L250 210L220 160Z'/%3E%3Cpath fill='%23fff' d='M220 120L190 148L206 142L220 160L236 140L246 150Z M470 80L420 124L440 116L462 142L486 114L506 128Z M70 170L52 186L64 182L72 194L84 180Z'/%3E%3C/svg%3E") repeat-x -140px bottom/auto 100%;opacity:.95;transform:translate3d(0,calc(var(--sy)*-.03px),0)}
+
+/* ===== background snow: snowy hills + soft far-away snowfall behind everything ===== */
+#snowBack{width:100%;height:100%;opacity:0;transition:opacity 3s ease}
+#snowBack.on{opacity:1}
+.hill{inset:auto -10% -60px -10%;height:calc(26vh + 60px);background:radial-gradient(60% 100% at 14% 100%,#f1f8fc 0 98%,transparent 99%),radial-gradient(70% 100% at 72% 100%,#e6f1f7 0 98%,transparent 99%);transform:translate3d(0,calc(var(--sy)*-.03px),0);filter:drop-shadow(0 -8px 14px #7aa6c026)}
+.hill.near{height:calc(15vh + 60px);background:radial-gradient(55% 100% at 30% 100%,#fff 0 98%,transparent 99%),radial-gradient(62% 100% at 92% 100%,#fbfdff 0 98%,transparent 99%);transform:translate3d(0,calc(var(--sy)*-.06px),0);filter:drop-shadow(0 -6px 12px #7aa6c033)}
 
 /* ===== header ===== */
 .site-header{position:sticky;top:0;z-index:60;padding-top:var(--sat);background:#fffdf7a6;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:background .5s ease,box-shadow .5s ease,border-color .5s ease}
@@ -148,11 +161,11 @@ img.fade.loaded{opacity:1}
 .sec{width:min(100% - 24px,1120px);padding:0 8px;margin-top:56px}
 .hero{border-radius:0 0 22px 22px}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition-duration:.01ms!important}.js .rv,.js .hero .art{opacity:1;transform:none;filter:none}img.fade{opacity:1}#snow{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition-duration:.01ms!important}.js .rv,.js .hero .art{opacity:1;transform:none;filter:none}img.fade{opacity:1}#snow,#snowBack{display:none}.sun{animation:none;opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<div class="scene" aria-hidden="true"><div class="glow"></div><div class="pines far"></div><div class="pines"></div><div class="mist"></div></div>
+<div class="scene" aria-hidden="true"><div class="glow"></div><div class="rays"></div><div class="sun"></div><div class="mtn far"></div><div class="mtn near"></div><div class="pines far"></div><div class="pines"></div><div class="hill far"></div><div class="hill near"></div><div class="mist"></div><canvas id="snowBack"></canvas></div>
 <canvas id="snow" aria-hidden="true"></canvas>
 
 <header class="site-header" id="hdr">
@@ -332,6 +345,46 @@ img.fade.loaded{opacity:1}
     document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
     size(); t0 = performance.now(); start();
     requestAnimationFrame(() => cv.classList.add('on'));
+})();
+</script>
+<script>
+/* soft background snowfall (behind the content): tiny far flakes + big blurry bokeh flakes */
+(() => {
+    const cv = document.getElementById('snowBack');
+    if (!cv || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const cx = cv.getContext('2d');
+    let W, H, fl = [], raf = 0, last = 0;
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const sprite = (s, a) => { const c = document.createElement('canvas'); c.width = c.height = s; const g = c.getContext('2d'), r = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2); r.addColorStop(0, 'rgba(255,255,255,' + a + ')'); r.addColorStop(.55, 'rgba(255,255,255,' + a * .55 + ')'); r.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = r; g.fillRect(0, 0, s, s); return c; };
+    const DOT = sprite(32, 1), BOKEH = sprite(64, .7);
+    function size() {
+        const d = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+        cv.width = W * d; cv.height = H * d; cx.setTransform(d, 0, 0, d, 0, 0);
+        fl = [];
+        const n = Math.round(Math.max(70, Math.min(W / 6, 210)));
+        for (let i = 0; i < n; i++) fl.push({ s: DOT, r: rnd(1.4, 3.4), v: rnd(.15, .45), a: rnd(.45, .85), x: rnd(0, W), y: rnd(0, H), ph: rnd(0, 6.28), sw: rnd(.1, .4) });
+        const b = Math.round(Math.max(8, Math.min(W / 70, 18)));
+        for (let i = 0; i < b; i++) fl.push({ s: BOKEH, r: rnd(16, 38), v: rnd(.1, .28), a: rnd(.3, .6), x: rnd(0, W), y: rnd(0, H), ph: rnd(0, 6.28), sw: rnd(.05, .2) });
+    }
+    function frame(ts) {
+        raf = requestAnimationFrame(frame);
+        const dt = Math.min((ts - last) / 16.7, 3) || 1; last = ts;
+        const wind = Math.sin(ts * .00018) * .35 + Math.sin(ts * .0006) * .12;
+        cx.clearRect(0, 0, W, H);
+        for (const f of fl) {
+            f.ph += .008 * dt;
+            f.x += (Math.sin(f.ph) * f.sw + wind) * dt;
+            f.y += f.v * dt;
+            if (f.y > H + f.r) { f.y = -f.r; f.x = rnd(0, W); }
+            if (f.x > W + f.r) f.x = -f.r; else if (f.x < -f.r) f.x = W + f.r;
+            cx.globalAlpha = f.a; cx.drawImage(f.s, f.x - f.r, f.y - f.r, f.r * 2, f.r * 2);
+        }
+    }
+    const start = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } };
+    const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+    addEventListener('resize', size);
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+    size(); start(); requestAnimationFrame(() => cv.classList.add('on'));
 })();
 </script>
 </body>
