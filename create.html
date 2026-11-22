@@ -263,7 +263,6 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
 <div class="head"><h2><span class="num">4</span>Your details</h2><p>For your order</p></div>
 <div class="fields">
 <label>Full name<input id="name" type="text" placeholder="Your full name" autocomplete="name" maxlength="100" required></label>
-<label>Email address<input id="email" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email" maxlength="150" required></label>
 <label>Reference number<input id="reference" type="text" placeholder="e.g. 1234567890123" autocomplete="off" inputmode="numeric" maxlength="30"></label>
 <label>Mobile number <span class="optional">(optional)</span><input id="phone" type="tel" placeholder="09XX XXX XXXX" autocomplete="tel" maxlength="30"></label>
 </div>
@@ -333,7 +332,7 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
     function refreshSteps() {
         if ($('resultPanel').style.display === 'block') return setStep(3);
         if (!photoData) return setStep(0);
-        setStep($('name').value.trim() && $('email').value.trim() ? 2 : 1);
+        setStep($('name').value.trim() ? 2 : 1);
     }
     function updatePackageUI(p) {
         pkg = p;
@@ -347,7 +346,7 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
     }
     updatePackageUI(params.get('pkg') === 'premium' ? 'premium' : 'basic');
     referenceInput.addEventListener('input', () => { $('sumRef').textContent = referenceInput.value.trim() || '—'; });
-    ['name','email'].forEach(id => $(id).addEventListener('input', refreshSteps));
+    $('name').addEventListener('input', refreshSteps);
 
     function say(msg) { notice.textContent = msg; notice.classList.add('show'); clearTimeout(say.t); say.t = setTimeout(() => notice.classList.remove('show'), 4000); }
 
