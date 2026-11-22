@@ -1,4 +1,4 @@
-﻿{
+{
   "cleanUrls": true,
   "functions": {
     "api/sweep.js": { "maxDuration": 60 },
