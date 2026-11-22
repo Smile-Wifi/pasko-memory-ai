@@ -187,7 +187,7 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
 .loader-photos span{background:#ffffff1f;border:1px solid #ffffff33;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700}
 .loader-photos span.done{background:#f0b429;color:#043f21;border-color:#f0b429}
 </style>
-</head>
+<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180"><link rel="icon" href="/favicon.png" type="image/png" sizes="64x64"></head>
 <body data-scene="day">
 <div class="sky" aria-hidden="true"><div class="sky-day"></div><div class="sky-night"><div class="stars"></div><div class="moon"></div></div><div class="drift"></div></div>
 <canvas id="snow" aria-hidden="true"></canvas>
@@ -387,5 +387,5 @@ body[data-scene=night] .scene-btn{background:#0b2236e6;color:#fff}
     addEventListener('resize', size); size(); apply(idx); start(); timer = setInterval(shuffle, 180000);
 })();
 </script>
-</body>
+<script src="/pwa.js" defer></script></body>
 </html>
